@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { atom, useRecoilState } from "recoil";
 
+const detailState = atom({
+  key: "detailState",
+  default: {
+    name: "",
+    email: "",
+    password: "",
+  },
+});
 const LoginForm = ({ Login, error }) => {
-  const [details, setDetails] = useState({ name: "", email: "", password: "" });
+  const [details, setDetails] = useRecoilState(detailState);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -12,7 +21,7 @@ const LoginForm = ({ Login, error }) => {
       <div className="form-inner">
         <h2>Login</h2>
         {/* Error */}
-        {error != "" ? <div className="error">{error}</div> : ""}
+        {error !== "" ? <div className="error">{error}</div> : ""}
         <div className="form-group">
           <label htmlFor="name">Name: </label>
           <input
